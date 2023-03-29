@@ -1,0 +1,616 @@
+@use 'config.scss';
+
+$reviewLeftBlock: calc(#{config.$sidebarWidth} / 4);
+$reviewRightBlock: calc(100% - #{$reviewLeftBlock});
+$userImageSmallWidth: calc(#{config.$userImageWidth} * .7);
+$userImageSmallHeight: calc(#{config.$userImageHeight} * .7);
+
+// Header
+header{
+
+  .header__logo{
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: config.$bgBlack;
+  }
+
+}
+
+// Content
+.sort-panel {
+
+  .sort-panel__container {
+    padding-inline: 0;
+  }
+
+  .sort-panel__row {
+    @include config.df;
+    justify-content: space-between;
+  }
+
+  .sort-panel__right{
+    @include config.df;
+  }
+
+  .sort-panel__buttons-group{
+    @include config.df;
+    align-items: center;
+    margin-left: config.$halfPadding;
+    border: 1px solid config.$color4;
+    border-radius: config.$borderRadius;
+    box-shadow: 0 4px 30px rgb(95 94 231 / 10%);
+
+    &:first-child{
+      margin-left: 0;
+    }
+
+    .sort-panel__btn{
+      border-radius: 0;
+      border-left: 1px solid config.$fontGrey;
+      background: config.$color5;
+      color: config.$bgBlack;
+
+      &:first-child{
+        border-left: none;
+        border-radius: config.$borderRadius 0 0 config.$borderRadius;
+      }
+
+      &:last-child{
+        border-radius: 0 config.$borderRadius config.$borderRadius 0;
+      }
+
+      &:has(>input:checked) {
+        background: config.$bgSidebar;
+      }
+
+      &:hover{
+        box-shadow: none;
+      }
+
+      input{
+        display: none;
+      }
+
+    }
+
+  }
+
+}
+
+// Review
+.reviews-next{
+  margin-top: config.$halfPadding;
+  text-align: center;
+}
+
+.review{
+  margin-bottom: config.$basePadding;
+  @include config.df;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  .review__right{
+    width: 100%;
+  }
+
+  .review__left{
+    flex: 1 $reviewLeftBlock;
+    max-width: $reviewLeftBlock;
+    position: relative;
+
+    .review__author-name{
+      font-size: 1.1rem;
+    }
+
+    .review__author-image{
+      display: inline-block;
+      width: $reviewLeftBlock;
+      height: $reviewLeftBlock;
+      border-radius: 50%;
+      background: config.$orange;
+      color: white;
+      overflow: hidden;
+
+      img{
+        display: block;
+        width: 100%;
+        height: $reviewLeftBlock;
+      }
+
+      .review__author-name{
+        width: $reviewLeftBlock;
+        height: $reviewLeftBlock;
+        line-height: $reviewLeftBlock;
+        text-align: center;
+        font-size: 1.4rem;
+      }
+
+    }
+
+  }
+
+  .review__data{
+    flex: 1;
+    margin-left: config.$basePadding;
+    @include config.df;
+    @include config.blockStyle;
+  }
+
+  .review__edit{
+    flex: 1 100%;
+    margin: config.$basePadding 0 config.$basePadding calc(#{$reviewLeftBlock} + #{config.$basePadding});
+
+    .btn--action{
+      margin-right: config.$basePadding;
+    }
+
+  }
+
+  .review__row-rate{
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .review__show-more{
+    flex: 1 100%;
+    margin-block: config.$halfPadding;
+    text-align: right;
+  }
+
+  .review__rate-list{
+    @include config.df;
+
+    .review__rate-item{
+      position: relative;
+      top: .2rem;
+      margin-right: calc(#{config.$halfPadding} - .5rem);
+
+      &.review__rate-item_non-active{
+        opacity: .3;
+      }
+
+      svg{
+        color: config.$orange;
+      }
+
+    }
+
+    .review__rate-item-count{
+      font-size: 1.2rem;
+      line-height: 1.7;
+      margin-left: config.$basePadding;
+    }
+
+  }
+
+  .review__users{
+    @include config.df;
+
+    .review__user-item-img{
+      @include config.userImage($userImageSmallWidth, $userImageSmallHeight);
+      overflow: hidden;
+      margin-left: calc(#{config.$halfPadding} * .5);
+
+      span{
+        display: block;
+        width: $userImageSmallHeight;
+        height: $userImageSmallHeight;
+        line-height: $userImageSmallHeight;
+        background: config.$orange;
+        text-align: center;
+        color: white;
+      }
+
+      img{
+        display: block;
+        width: $userImageSmallHeight;
+        height: auto;
+        background: config.$orange;
+      }
+
+    }
+
+  }
+
+  .review__row-film-data{
+    padding-top: calc(#{config.$basePadding} * .8);
+    justify-content: space-between;
+    align-items: baseline;
+
+    .review__film-info_right{
+      text-align: right;
+    }
+
+    .review__film-title{
+      font-size: 1.3rem;
+      margin-bottom: config.$basePadding;
+    }
+
+    .review__film-year,
+    .review__film-type{
+      margin-bottom: config.$halfPadding;
+    }
+
+    .review__film-type,
+    .review__film-genre,
+    .review__film-year{
+      color: config.$bgMediumBlack;
+    }
+
+    .review__film-genre{
+
+      span{
+        display: inline-block;
+        margin-left: .5rem;
+        padding: .2rem .5rem;
+        border: 1px solid config.$bgMediumBlack;
+        border-radius: 10rem;
+        font-size: .9rem;
+
+        &:first-child{
+          margin-left: .2rem;
+        }
+
+      }
+
+    }
+
+    .review__film-publish-date{
+      margin-bottom: config.$halfPadding;
+    }
+
+    .review__film-link-info{
+      margin-bottom: config.$halfPadding;
+    }
+
+  }
+
+  .review__row-reviews{
+    margin-top: calc(#{config.$basePadding} * 1.5);
+
+    .review__user-review{
+      @include config.df;
+      width: 100%;
+      margin-top: config.$basePadding;
+      padding-left: 3rem;
+
+      &:first-child{
+        padding-left: 0;
+        margin-bottom: 0;
+
+        .review__user-text{
+          width: 100%;
+        }
+
+      }
+
+      .review__user-img{
+        max-width: calc(100% - #{$userImageSmallWidth});
+        height: $userImageSmallWidth;
+        margin-right: 1.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+
+        span{
+          display: inline-block;
+          @include config.userImage(calc(#{$userImageSmallWidth}), calc(#{$userImageSmallHeight}));
+          background: config.$orange;
+          line-height: $userImageSmallHeight;
+          text-align: center;
+          color: white;
+        }
+
+        img{
+          display: block;
+          width: $userImageSmallWidth;
+          height: auto;
+          background: config.$orange;
+        }
+
+      }
+
+      .review__user-text{
+        width: calc(100% - #{$userImageSmallWidth} - 1.5rem);
+
+        div{
+          padding: config.$basePadding;
+          line-height: 1.3;
+          border-radius: 1rem;
+          background: config.$bgDefault;
+          color: config.$fontColorMedium
+        }
+
+      }
+
+      .review__user-rate{
+        @include config.df;
+        align-items: center;
+        margin-top: 1rem;
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: config.$orange;
+
+        .review__user-rate-desc{
+          margin-right: .2rem;
+        }
+
+        svg{
+          width: 1.4rem;
+          color: config.$orange
+        }
+
+      }
+
+    }
+
+    .review__user-review-show-all{
+      flex: 1 100%;
+      margin-top: config.$halfPadding;
+      text-align: right;
+    }
+
+  }
+
+}
+
+// Review Form
+.review-form{
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-column-gap: 3%;
+  grid-row-gap: config.$basePadding;
+  grid-template-columns: repeat(2, 1fr);
+  box-sizing: border-box;
+
+  .default-form__label{
+    margin-bottom: 0;
+  }
+
+  .a {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+  .b {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
+  .c {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 3;
+  }
+  .d {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+  .e {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 5;
+  }
+  .g {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 2;
+  }
+  .h {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 5;
+
+    .default-form__textarea{
+      min-height: 5rem;
+      height: 90%;
+    }
+
+    .form-error {
+      display: block;
+      margin-bottom: calc(#{config.$halfPadding} / 1.5);
+    }
+
+  }
+  .j {
+    @include config.df;
+    align-items: flex-end;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
+  }
+
+  //.review-form__block{
+  //  flex: 1 48.5%;
+  //  max-width: 48.5%;
+  //  margin-right: 3%;
+  //
+  //  &:last-child{
+  //    margin-right: 0;
+  //  }
+  //
+  //}
+
+}
+
+// login
+.login{
+  @include config.df;
+  align-items: center;
+  height: 100vh;
+  padding-block: config.$basePadding;
+  box-sizing: border-box;
+}
+
+// Account
+.account{
+  @include config.df;
+  align-items: flex-start;
+  padding-block: config.$basePadding;
+  box-sizing: border-box;
+
+  .account__left{
+    flex: 1 calc(#{$reviewLeftBlock} * 3);
+    max-width: calc(#{$reviewLeftBlock} * 3);
+    position: relative;
+    text-align: center;
+  }
+
+  .account__image-container{
+    height: calc(#{$reviewLeftBlock} * 3);
+    position: relative;
+    @include config.blockStyle(5rem, 0);
+    margin-bottom: config.$halfPadding;
+    overflow: hidden;
+    background: config.$orange;
+  }
+
+  .account__image{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .account__name{
+    width: calc(#{$reviewLeftBlock} * 3);
+    height: calc(#{$reviewLeftBlock} * 3);
+    line-height: calc(#{$reviewLeftBlock} * 3);
+    font-size: 4rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  .account__image-chose{
+
+    input{
+      display: none;
+    }
+
+  }
+
+  .account__right{
+    flex: 1 calc(85% - #{$reviewLeftBlock} * 3 - 2rem);
+    max-width: calc(85% - #{$reviewLeftBlock} * 3 - 2rem);
+    margin-left: 2rem;
+  }
+
+  .account__form{
+    @include config.defaultFormConfig(100%);
+    box-sizing: border-box;
+  }
+
+}
+
+// page-not-found
+.page-not-found{
+  height: 100vh;
+  @include config.df;
+  @include config.blockStyle;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+// Adaptive
+@media(max-width: 1200px){
+
+  h1, .film-info__title{
+    font-size: 1.3rem;
+  }
+
+  .login{
+    padding-block: 0;
+  }
+
+  header{
+
+    .header__row{
+      flex-direction: row;
+    }
+
+    .header__logo{
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .header__left{
+      height: auto;
+      border-bottom: none;
+    }
+
+    .header__menu{
+      @include config.df;
+      align-items: center;
+      padding: 0;
+
+      li{
+        margin-bottom: 0;
+        padding: 0;
+      }
+
+    }
+
+  }
+
+  .sidebar{
+    @include config.df;
+    width: 100%;
+    height: 3rem;
+    justify-content: space-between;
+    top: 0;
+    padding-bottom: 0;
+    z-index: 2;
+
+    .sidebar__account{
+      position: relative;
+      width: auto;
+      height: auto;
+    }
+
+  }
+
+  .main{
+    width: 100%;
+    margin: 3rem 0 0 0;
+  }
+
+}
+
+// 990px
+@media(max-width: 990px){
+
+  .main{
+
+    &.main--auth{
+      margin: 0;
+    }
+
+    .content{
+      padding: 0 1.5rem;
+    }
+
+  }
+
+  .default-form {
+    width: min(95%, 28rem);
+
+    .default-form__desc{
+      font-size: .9rem;
+    }
+
+  }
+
+}
