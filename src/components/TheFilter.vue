@@ -12,20 +12,19 @@
 
   const { formSchema } = formFilter()
 
+  /**
+   * Filter(search) fn for the reviews
+   *
+   * @param $event
+   * @param fieldsValues
+   */
   const formSearch = ({ $event, fieldsValues }) => {
     filter.value = fieldsValues
 
     const btn = $event.target.querySelector('button[type="submit"]')
 
     btn.setAttribute('disabled', true)
-    btn.textContent = 'Запрос обрабатывается...'
-
-    // store.dispatch('review/addReview', data)
-    //     .then( _ => {
-    //       store.commit('setMessage', { message: notification('db/review-created'), element: btn })
-    //       router.push('/my-reviews')
-    //     })
-    //     .catch(e => store.commit('setMessage', { message: notification(e.code), element: btn }))
+    btn.textContent = 'Идет поиск...'
 
     store.dispatch('review/searchPublications', { filter: filter.value })
         .then(_ => {

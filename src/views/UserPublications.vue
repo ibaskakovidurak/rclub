@@ -7,6 +7,10 @@ const store = useStore()
 const loading = computed(() => store.getters.loading)
 const publications = computed(() => store.getters['review/publications'])
 
+/**
+ * Dispatching the async action to get all the user publications from the DB
+ *
+ */
 store.dispatch('review/getPublications', { payload: true })
     .then(_ => store.commit('setLoading', false))
     .catch(e => console.log(e))

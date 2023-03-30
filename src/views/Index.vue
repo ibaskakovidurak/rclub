@@ -9,6 +9,10 @@ const loading = computed(() => store.getters.loading)
 const publications = computed(() => store.getters['review/publications'])
 const showFilter = ref(false)
 
+/**
+ * Dispatching the async action to get all unfiltered publications from the DB
+ *
+ */
 store.dispatch('review/getPublications', { payload: false })
     .then(_ => {
       store.commit('setLoading', false)

@@ -29,23 +29,66 @@ export default {
         }
     },
     mutations: {
+        /**
+         * Set review publications
+         *
+         * @param state
+         * @param payload
+         */
         setPublications (state, payload) {
             state.publications = payload
         },
+
+        /**
+         * Push a new review
+         *
+         * @param state
+         * @param payload
+         */
         pushToPublications (state, payload) {
             state.publications.push(payload)
         },
+
+        /**
+         * Set filter for the all reviews
+         *
+         * @param state
+         * @param payload
+         */
         setFilter (state, payload) {
             state.filter = payload
         },
+
+        /**
+         * Set the last review in the query for the pagination
+         *
+         * @param state
+         * @param payload
+         */
         setLast (state, payload) {
             state.last = payload
         },
+
+        /**
+         * Set the last review in the query for the pagination in the filter (not approved yet)
+         *
+         * @param state
+         * @param payload
+         */
         setLastSearch (state, payload) {
             state.lastSearch = payload
         }
     },
     actions: {
+
+        /**
+         * Get one review from the DB by docID
+         *
+         * @async
+         * @param _
+         * @param docID
+         * @return {Promise<DocumentSnapshot<DocumentData>>}
+         */
         async getPublication (_, docID) {
             try{
                 const docRef = doc(db, 'movies', docID);
@@ -54,6 +97,16 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Search for user reviews in the DB by the filter
+         *
+         * @async
+         * @param commit
+         * @param dispatch
+         * @param payload
+         * @return {Promise<boolean>}
+         */
         async searchPublications ({ commit, dispatch }, payload) {
             try{
                 const publications = []
@@ -122,6 +175,16 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Get all user reviews from the DB
+         *
+         * @async
+         * @param commit
+         * @param dispatch
+         * @param payloadObject
+         * @return {Promise<boolean>}
+         */
         async getPublications ({ commit, dispatch }, payloadObject) {
             if (!payloadObject.last) {
                 commit('setLoading', true, {root: true})
@@ -193,6 +256,15 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Add user review to the DB
+         *
+         * @async
+         * @param dispatch
+         * @param data
+         * @return {Promise<DocumentReference<DocumentData>>}
+         */
         async addReview ({ dispatch }, data) {
             try {
                 const user = await dispatch('user/getUser', null, {root: true})
@@ -210,6 +282,16 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Update a user review in the DB by userID & docID
+         *
+         * @async
+         * @param commit
+         * @param dispatch
+         * @param data
+         * @return {Promise<void>}
+         */
         async updateReview ({ commit,dispatch }, data) {
             try {
                 const reviewRequestData = {...data}
@@ -229,6 +311,15 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Delete user review & review rates from the DB by docID
+         *
+         * @async
+         * @param dispatch
+         * @param docID
+         * @return {Promise<void>}
+         */
         async deleteReview ({ dispatch }, docID) {
             const q = query(collection(db, 'rates'), where('docID', '==', docID))
             const rates = await getDocs(q)

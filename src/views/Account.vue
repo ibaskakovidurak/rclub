@@ -14,6 +14,34 @@
   const imageLink = ref('')
   const schema = ref(null)
 
+  /**
+   * Dispatching async action to get user info
+   */
+  store.dispatch('user/getUser').then(res => {
+    const fields = {
+      imageOld: res.imageOld,
+      name: res.name,
+      email: res.email,
+      docID: res.docID,
+      userID: res.userID
+    }
+
+    name.value = res.name
+    imageLink.value = res.image
+
+    const { formSchema } = userAccountUpdate(fields)
+
+    schema.value = formSchema
+
+    store.commit('setLoading', false)
+  })
+
+  /**
+   * Custom fn to update user account
+   *
+   * @param $event
+   * @param values
+   */
   const submitCustom = ({$event, fieldsValues: values}) => {
     const btn = $event.target.querySelector('button[type="submit"]')
 
@@ -38,25 +66,10 @@
     }
   }
 
-  store.dispatch('user/getUser').then(res => {
-    const fields = {
-      imageOld: res.imageOld,
-      name: res.name,
-      email: res.email,
-      docID: res.docID,
-      userID: res.userID
-    }
 
-    name.value = res.name
-    imageLink.value = res.image
-
-    const { formSchema } = userAccountUpdate(fields)
-
-    schema.value = formSchema
-
-    store.commit('setLoading', false)
-  })
-
+  /**
+   * Logout from the app
+   */
   const logout = () => {
     store.dispatch('auth/logout')
     store.commit('auth/setAuthUser', false)

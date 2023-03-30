@@ -20,6 +20,14 @@ export default {
 
     },
     actions: {
+        /**
+         * Get all the rates of user reviews
+         *
+         * @param _
+         * @param docID (not necessary yet)
+         * @param userID
+         * @return {Promise<{rates: *[]}>}
+         */
         async getReviewRates (_, { docID, userID }) {
             try{
                 const conditions = []
@@ -45,6 +53,15 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Add rate for the another user review
+         *
+         * @async
+         * @param dispatch
+         * @param data
+         * @return {Promise<DocumentReference<DocumentData>>}
+         */
         async addRateReview ({ dispatch }, data) {
             try {
                 const user = await dispatch('user/getUser', null, {root: true})
@@ -60,6 +77,14 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Update review (new feature, but not yet approved)
+         *
+         * @param commit
+         * @param data
+         * @return {Promise<void>}
+         */
         async updateReview ({ commit }, data) {
             try {
                 // const { review, merge } = data

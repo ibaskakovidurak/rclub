@@ -6,6 +6,11 @@ import { notification } from '../utils/notification.js'
 const store = useStore()
 const router = useRouter()
 
+/**
+ * Callback fn to as a parameter to pass it to the login form
+ *
+ * @param values
+ */
 const cb = values => {
   store.dispatch('auth/login', values)
       .then(res => {

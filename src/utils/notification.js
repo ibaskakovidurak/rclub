@@ -56,6 +56,12 @@ const defaultRespond = {
     type: 'error'
 }
 
+/**
+ * Fn to get notification for the TosterNotification component
+ *
+ * @param code
+ * @return {{message: string, type: string}}
+ */
 export function notification (code) {
     const notice = respondTemplates.find(el => el.code === code) || defaultRespond
 

@@ -7,6 +7,14 @@
 
   const store = useStore()
   const router = useRouter()
+
+  /**
+   * Custom fn to add review
+   * *
+   * @param $event
+   * @param fieldsValues
+   * @param resetForm
+   */
   const submitCustom = ({ $event, fieldsValues }, resetForm) => {
     const data = fieldsValues
     const btn = $event.target.querySelector('button[type="submit"]')

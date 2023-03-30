@@ -1,3 +1,9 @@
+/**
+ * Get the correct ending of the word (temp & dumb solution)
+ *
+ * @param rate
+ * @return {string}
+ */
 const wordEnding = (rate) => {
     let ending = 'ов'
     if (rate === 1) {
@@ -9,6 +15,13 @@ const wordEnding = (rate) => {
     return ending
 }
 
+/**
+ * Fn to get review rating
+ *
+ * @param reviewRate
+ * @param userRates
+ * @return {{ending: string, rate: number}}
+ */
 export function rating (reviewRate, userRates) {
     const rates = []
 

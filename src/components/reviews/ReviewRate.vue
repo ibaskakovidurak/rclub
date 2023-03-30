@@ -17,6 +17,12 @@
 
   const { formSchema } = addReviewRate(props.docID)
 
+  /**
+   * Fn to add review rate to the DB
+   *
+   * @param $event
+   * @param fieldsValues
+   */
   const submitCustom = ({ $event, fieldsValues }) => {
     const btn = $event.target.querySelector('button[type="submit"]')
 

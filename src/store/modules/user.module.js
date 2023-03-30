@@ -16,6 +16,16 @@ const storage = getStorage(firebaseApp)
 export default {
     namespaced: true,
     actions: {
+
+        /**
+         * Get user info from the DB
+         *
+         * @async
+         * @param commit
+         * @param dispatch
+         * @param load
+         * @return {Promise<*|null>}
+         */
         async getUser ({ commit, dispatch }, load = true) {
             if (load) commit('setLoading', true, {root: true})
             try{
@@ -46,6 +56,15 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Upload user image in to the Firebase Storage
+         *
+         * @async
+         * @param _
+         * @param file
+         * @return {Promise}
+         */
         async uploadImage (_, file) {
             try {
                 const uniqueName = `${ new Date().getTime() }-${ file.name }`;
@@ -56,6 +75,15 @@ export default {
                 throw new Error(e)
             }
         },
+
+        /**
+         * Update user info in the DB
+         *
+         * @async
+         * @param commit
+         * @param data
+         * @return {Promise<void>}
+         */
         async updateUser ({ commit }, data) {
             const { docID, userID, name, image: newImage, imageOld } = data
             const obj = {name, userID, image: newImage ? newImage: imageOld}

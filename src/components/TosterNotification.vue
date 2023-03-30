@@ -3,6 +3,11 @@
     messages: Array
   })
 
+  /**
+   * Fn to remove notification from the "toster"
+   *
+   * @param id
+   */
   const removeNotification = (id) => {
     const idx = props.messages.findIndex(m => m.id === id)
     props.messages.splice(idx, 1)

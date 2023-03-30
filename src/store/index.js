@@ -18,6 +18,13 @@ export default createStore({
         }
     },
     mutations: {
+        /**
+         * Set message for the Toster Notifications
+         *
+         * @param state
+         * @param message
+         * @param element
+         */
         setMessage (state, {message, element}) {
             state.messages.push(message)
 
@@ -29,6 +36,13 @@ export default createStore({
                 if(state.messages.length === 0) state.notification = false
             }, 4000)
         },
+
+        /**
+         * Set loading state before/between getting the request, updating, etc.
+         *
+         * @param state
+         * @param payload
+         */
         setLoading (state, payload) {
             state.loading = payload
         }

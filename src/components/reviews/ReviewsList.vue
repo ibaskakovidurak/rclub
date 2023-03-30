@@ -30,6 +30,12 @@
 
   const openUpdateModal = docID => edit.value = docID
 
+  /**
+   * Delete fn to remove review from the DB
+   *
+   * @param docID
+   * @param e
+   */
   const deleteReview = (docID, e) => {
     if (confirm('Вы уверены?')) {
       const btn = e.target
@@ -46,6 +52,11 @@
     }
   }
 
+  /**
+   * Fn to upload next 10 publications from the DB (async pagination)
+   *
+   * @param e
+   */
   const getNext = (e) => {
     const btn = e.target
     const type = lastSearch.value ? 'review/searchPublications' : 'review/getPublications'

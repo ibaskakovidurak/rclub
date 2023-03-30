@@ -1,3 +1,8 @@
+/**
+ * Fn to choose image on the account page
+ *
+ * @param e
+ */
 export function chooseImage (e) {
     const img = document.getElementById(e.target.getAttribute('for'))
 

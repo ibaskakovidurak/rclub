@@ -17,12 +17,22 @@
   const store = useStore()
   const scheme = ref(null)
 
+  /**
+   * Dispatching the async action to get the publication from the DB by docID
+   *
+   */
   store.dispatch('review/getPublication', props.docID)
       .then(res => {
         const { formSchema } = addReview(res.data())
         scheme.value = formSchema
       })
 
+  /**
+   * Fn to update review in the DB
+   *
+   * @param $event
+   * @param fieldsValues
+   */
   const updateCustom = ({ $event, fieldsValues }) => {
     const btn = $event.target.querySelector('button[type="submit"]')
 

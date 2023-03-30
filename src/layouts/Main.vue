@@ -1,9 +1,9 @@
 <script setup>
-  import TheSidebar from '../components/sidebar/TheSidebar.vue'
+  import Sidebar from '../components/sidebar/Index.vue'
 </script>
 
 <template>
-  <the-sidebar></the-sidebar>
+  <sidebar></sidebar>
   <main class="main">
     <div class="content">
       <router-view></router-view>
