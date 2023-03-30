@@ -16,6 +16,7 @@
   const store = useStore()
 
   const { formSchema } = addReviewRate(props.docID)
+
   const submitCustom = ({ $event, fieldsValues }) => {
     const btn = $event.target.querySelector('button[type="submit"]')
 
@@ -24,12 +25,11 @@
     store.dispatch('rate/addRateReview', fieldsValues)
         .then( _ => {
           store.commit('setMessage', { message: notification('db/review-rate-created'), element: btn })
-          store.dispatch('review/getPublications')
+          store.dispatch('review/getPublications', { payload: false })
               .then(_ => store.commit('setLoading', false))
               .catch(e => console.log(e))
         })
         .catch(e => {
-          console.log(e)
           store.commit('setMessage', { message: notification(e.code), element: btn })
         })
   }

@@ -53,7 +53,6 @@
     btn.textContent = 'Загрузка...'
     btn.setAttribute('disabled', true)
 
-
     store.dispatch(type, { payload: props.editable, last: last.value, filter: filter.value })
         .then(res => {
           if (res) {
@@ -137,7 +136,7 @@
           <div class="review__user-review-show-all" v-if="review.rates.length > 0">
             <button type="button" class="btn btn--link" @click="showReviews = !showReviews">{{ showReviews ? 'Скрыть' : 'Показать' }} все оценки</button>
           </div>
-          <review-rate-list :rates="review.rates" v-if="review.rates.length > 0 && showReviews"></review-rate-list>
+          <review-rate-list :rates="review.rates" :current-user="review.currentUserID" v-if="review.rates.length > 0 && showReviews"></review-rate-list>
         </div>
       </div>
     </div>
