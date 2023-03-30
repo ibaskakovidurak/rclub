@@ -1,8 +1,10 @@
 <script setup>
+import {computed, ref, watch} from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from "vue-router";
 import { loginForm } from '../utils/login-form.js'
 import { notification } from '../utils/notification.js'
+
 const store = useStore()
 const router = useRouter()
 
@@ -29,7 +31,8 @@ const {
   password,
   pError,
   pBlur,
-  onSubmit
+  onSubmit,
+  isSubmitting
 } = loginForm(cb)
 </script>
 
@@ -48,7 +51,7 @@ const {
         <input name="password" class="default-form__input" type="password" v-model="password" @blur="pBlur">
         <span class="form-error" v-if="pError">{{ pError }}</span>
       </label>
-      <button type="submit" class="btn btn--big btn--outline default-form__submit">Войти</button>
+      <button type="submit" id="loginBtn" class="btn btn--big btn--outline default-form__submit" :disabled="isSubmitting">Войти</button>
     </form>
   </div>
 </template>

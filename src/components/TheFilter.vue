@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, inject } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import { notification } from '../utils/notification.js'
@@ -9,8 +9,8 @@
   const store = useStore()
   const router = useRouter()
   const filter = ref(null)
-
   const { formSchema } = formFilter()
+  const searchingState = inject('searchingState')
 
   /**
    * Filter(search) fn for the reviews
@@ -26,11 +26,14 @@
     btn.setAttribute('disabled', true)
     btn.textContent = 'Идет поиск...'
 
+    searchingState.value = true
+
     store.dispatch('review/searchPublications', { filter: filter.value })
         .then(_ => {
           btn.removeAttribute('disabled')
           btn.textContent = 'Найти рецензию'
           store.commit('review/setLastSearch', true)
+          searchingState.value = false
         })
         .catch(e => store.commit('setMessage', { message: notification(e.code), element: btn }))
   }

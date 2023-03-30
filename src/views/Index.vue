@@ -1,13 +1,17 @@
 <script setup>
 import { useStore } from 'vuex'
-import { computed, ref } from 'vue'
+import { computed, ref, provide } from 'vue'
 import TheFilter from '../components/TheFilter.vue'
 import ReviewsList from '../components/reviews/ReviewsList.vue'
 
 const store = useStore()
 const loading = computed(() => store.getters.loading)
 const publications = computed(() => store.getters['review/publications'])
-const showFilter = ref(false)
+const searchingState = ref(false)
+
+let showFilter = ref(false)
+
+provide('searchingState', searchingState)
 
 /**
  * Dispatching the async action to get all unfiltered publications from the DB
@@ -28,12 +32,13 @@ store.dispatch('review/getPublications', { payload: false })
         <div class="row sort-panel__row">
           <div class="sort-panel__left"><h1>Все рецензии</h1></div>
           <div class="sort-panel__right">
-            <button type="button" class="btn btn--outline" @click="showFilter = !showFilter">Показать фильтр</button>
+            <button type="button" class="btn btn--outline" @click="showFilter = !showFilter">{{ showFilter ? 'Скрыть' : 'Показать' }} фильтр</button>
           </div>
         </div>
       </div>
     </div>
     <the-filter v-if="showFilter"></the-filter>
-    <reviews-list :reviews="publications"></reviews-list>
+    <reviews-list :reviews="publications" v-if="!searchingState"></reviews-list>
+    <div class="loading" v-else></div>
   </div>
 </template>
